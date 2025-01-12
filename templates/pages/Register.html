@@ -1,0 +1,108 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="ar">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SignUp Page</title>
+        <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet">
+        <style>
+            /* Body Styling: Center the form on the page */
+            body {
+                font-family: Arial, sans-serif;  /* Use a clean, simple font */
+                background-color: #f4f4f4;  /* Light gray background color */
+                display: flex;  /* Use flexbox to center the form */
+                justify-content: center;  /* Center horizontally */
+                align-items: center;  /* Center vertically */
+                height: 100vh;  /* Take up the full height of the viewport */
+                margin: 0;  /* Remove default margin */
+            }
+
+            /* Form Styling: Basic structure of the form */
+            form {
+                background-color: #fff;  /* White background for the form */
+                padding: 40px;  /* Space inside the form */
+                border-radius: 8px;  /* Rounded corners */
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);  /* Light shadow for a 3D effect */
+                max-width: 400px;  /* Limit form width */
+                width: 100%;  /* Make the form responsive */
+                box-sizing: border-box;  /* Include padding and border in width calculation */
+            }
+
+            h1 {
+                text-align: center;  /* Center the heading */
+                margin-bottom: 20px;  /* Space below the heading */
+                font-size: 24px;  /* Larger font size for the title */
+                color: #333;  /* Dark gray color for the title */
+            }
+
+            /* Label Styling: Labels for input fields */
+            label {
+                display: block;  /* Make labels block-level to be on their own line */
+                margin-bottom: 8px;  /* Space between the label and the input field */
+                font-size: 16px;  /* Slightly larger font for labels */
+                color: #555;  /* Darker gray for better readability */
+            }
+
+            /* Input Fields Styling: Email and Password fields */
+            input[type="email"], input[type="password"] {
+                width: 100%;  /* Inputs take up full width of the form */
+                padding: 12px;  /* More padding inside the fields for better clickability */
+                margin: 10px 0;  /* Space between input fields */
+                border: 1px solid #ccc;  /* Light border color */
+                border-radius: 5px;  /* Rounded corners for input fields */
+                box-sizing: border-box;  /* Include padding and border in width calculation */
+                font-size: 16px;  /* Larger font inside the input for readability */
+            }
+
+            /* Button Styling: Submit button */
+            button {
+                width: 100%;  /* Button spans the full width of the form */
+                padding: 12px;  /* Padding to make the button more clickable */
+                background-color: #4CAF50;  /* Green background */
+                color: white;  /* White text color */
+                border: none;  /* No border */
+                border-radius: 5px;  /* Rounded corners for the button */
+                cursor: pointer;  /* Pointer cursor to show it's clickable */
+                font-size: 18px;  /* Larger font for readability */
+                margin-top: 10px;  /* Space above the button */
+            }
+
+            button:hover {
+                background-color: #45a049;  /* Darker green when mouse hovers over the button */
+            }
+
+            /* Error Styling: For displaying error messages */
+            .error {
+                color: red;  /* Red color for error messages */
+                font-size: 14px;  /* Slightly smaller font for errors */
+                margin-top: 10px;  /* Space above the error messages */
+            }
+        </style>
+    </head>
+
+    <body>
+        <div>
+            <h1>
+                SignUP 
+                <i class="em em-key" aria-role="presentation" aria-label="KEY"></i>
+            </h1>  <!-- Title of the form -->
+            <form method="POST">
+                {% csrf_token %}
+                <div>
+                    <label for="id_email" >Email</label>  <!-- Label for the email input -->
+                    {{ form.email }}  <!-- Django form field for email -->
+                    {% if error == 1 %}
+                        <label class="error">This email is already registered. Please use another email.</label>  <!-- Error message for pre-existing email -->
+                    {% endif %}
+                </div>
+                <div>
+                    <label for="id_password" >Password</label>  <!-- Label for the password input -->
+                    {{ form.password }}  <!-- Django form field for password -->
+                </div>
+                <button type="submit">Sign Up</button>  <!-- Submit button -->
+            </form>
+        </div>
+    </body>
+</html>
+{% endblock content %}

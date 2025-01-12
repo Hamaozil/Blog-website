@@ -1,0 +1,18 @@
+{% extends 'Base.html'%}
+
+
+{% block content%}
+<div class="container my-5">
+
+    <h1 class="text-center mb-5">Edit Blog Post</h1>
+
+    <form method='POST' enctype="multipart/form-data">
+        {%csrf_token %}
+        <label for="description" >description :</label>
+        <textarea  name="description" placeholder="Enter your message here"  rows="6" cols="50" style="width: 100%; height: 200px;">{{blog.description}}</textarea >
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-success">Edit</button>
+        </div>
+    </form>
+</div>
+{% endblock content%}

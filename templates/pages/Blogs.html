@@ -1,0 +1,42 @@
+<!-- blog_page.html -->
+{% extends 'Base.html' %}
+
+{% block additional_nav_items%}
+    <li class="nav-item"><a class="nav-link" href="{% url 'MyBlogs' currentUser %}">MY Blogs</a></li>
+{% endblock additional_nav_items%}
+
+{% block content %}
+
+<div class="container my-5">
+    <h1 class="text-center mb-5">Blog Posts</h1>
+    
+    <div class="row">
+        {% for blog in blogs %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                {% if blog.img %}
+                    <img src="{{ blog.img.url }}" class="card-img-top" alt="{{ blog.title }}" style="max-height: 200px; object-fit: cover;">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ blog.title }}</h5>
+                    <p class="card-text">
+                        {{ blog.description|truncatewords:20 }}
+                        <a href="{% url 'BlogDetail' blog.slug %}" >Read More</a>
+                    </p>
+                </div>
+                <div class="card-footer text-muted">
+                    <small>Posted on: {{ blog.created_at|date:"F j, Y" }}</small><br>
+                    <small>Created by: <a href="{% url 'Authorlogs' blog.id %}" >{{ blog.user.email}}</a></small>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No blogs available.</p>
+        {% endfor %}
+    </div>
+
+    <div class="text-center mt-5">
+        <a href="{% url 'CreateBlog' %}" class="btn btn-success">Create New Blog</a>
+    </div>
+</div>
+{% endblock %}

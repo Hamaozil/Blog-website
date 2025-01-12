@@ -1,0 +1,20 @@
+<!-- create_blog.html -->
+{% extends 'Base.html' %}
+
+{% block additional_nav_items%}
+<li class="nav-item"><a class="nav-link" href="{% url 'MyBlogs' currentUser%}">MY Blogs</a></li>
+{% endblock additional_nav_items%}
+
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center mb-5">Create a New Blog Post</h1>
+    
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock %}
+

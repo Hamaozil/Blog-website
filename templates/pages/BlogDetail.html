@@ -1,0 +1,42 @@
+<!-- blog_details.html -->
+{% extends 'Base.html' %}
+
+{% block additional_nav_items%}
+<li class="nav-item"><a class="nav-link" href="{% url 'MyBlogs' currentUser%}">MY Blogs</a></li>
+{% endblock additional_nav_items%}
+
+{% block content %}
+<div class="row justify-content-center my-5">
+    <div class="col-12 text-center">
+        <h1 class="display-4">{{ blog.title }}</h1>
+    </div>
+</div>
+
+<div class="row justify-content-center mb-4">
+    <div class="col-12 col-md-8 text-center">
+        {% if blog.img %}
+            <img src="{{ blog.img.url }}" class="img-fluid" alt="Blog Image" style="max-height: 200px;">
+        {% endif %}
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-12 col-md-8">
+        <p class="fs-4">{{ blog.description }}</p><br>
+        <p>Liked by {{ blog.like_set.count }} users.</p>
+        <h6>Posted on: {{ blog.created_at|date:"F j, Y" }}</h6>
+        {% if flag %}
+            <form method="post" action="{% url 'UnLikeBlog' blog.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Dislike</button>
+            </form>
+        {% else %}
+            <form method="post" action="{% url 'LikeBlog' blog.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success">Like</button>
+            </form>
+        {% endif %}
+    </div>
+        
+</div>
+{% endblock %}
